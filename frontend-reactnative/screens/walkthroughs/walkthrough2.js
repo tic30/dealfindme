@@ -9,6 +9,7 @@ import {
   RkStyleSheet,
   RkTheme,
 } from 'react-native-ui-kitten';
+import { sendNotification } from '../../components/sendNotification'
 
 export class Walkthrough2 extends React.Component {
   getThemeImageSource = (theme) => (
@@ -25,6 +26,7 @@ export class Walkthrough2 extends React.Component {
 
   render = () => (
     <View style={styles.screen}>
+    <sendNotification/>
       {this.renderImage()}
       <RkText rkType='header2' style={styles.text}>Explore different examples of frequently used pages</RkText>
     </View>

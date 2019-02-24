@@ -3,6 +3,7 @@ import { Button, View, Text } from 'react-native';
 import { createStackNavigator, createAppContainer } from 'react-navigation';
 import { WalkthroughScreen } from './screens/walkthroughs';
 
+
 class HomeScreen extends React.Component {
   static navigationOptions = {
     title: 'Home',

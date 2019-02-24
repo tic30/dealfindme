@@ -7,12 +7,15 @@
     "eject": "expo eject"
   },
   "dependencies": {
+    "assert": "^1.4.1",
     "expo": "^32.0.0",
+    "expo-server-sdk": "^3.1.0",
     "prop-types": "^15.7.2",
     "react": "16.5.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-32.0.0.tar.gz",
     "react-native-ui-kitten": "^3.1.2",
-    "react-navigation": "^3.3.0"
+    "react-navigation": "^3.3.0",
+    "zlib": "^1.0.5"
   },
   "devDependencies": {
     "babel-preset-expo": "^5.0.0"
