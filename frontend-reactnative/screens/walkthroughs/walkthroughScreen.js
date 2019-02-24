@@ -1,5 +1,6 @@
 import React from 'react';
-import { View, Button } from 'react-native';
+import { View } from 'react-native';
+import { Button } from 'react-native-elements';
 import { RkStyleSheet } from 'react-native-ui-kitten';
 import {
   GradientButton,
@@ -46,7 +47,7 @@ export class WalkthroughScreen extends React.Component {
       </Walkthrough>
       <PaginationIndicator length={2} current={this.state.index} />
       <Button
-        style={styles.button}
+        buttonStyle={styles.button}
         title="GET STARTED"
         onPress={this.onStartButtonPressed}
       />
@@ -63,5 +64,8 @@ const styles = RkStyleSheet.create({
   button: {
     marginTop: 25,
     marginHorizontal: 16,
+    padding: 10,
+    width:260,
+    backgroundColor: "#DC4545"
   },
 })
