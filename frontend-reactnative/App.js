@@ -2,6 +2,7 @@ import React from 'react';
 import { Button, View, Text } from 'react-native';
 import { createStackNavigator, createAppContainer } from 'react-navigation';
 import { WalkthroughScreen } from './screens/walkthroughs';
+import { PreviewScreen } from './screens';
 
 class HomeScreen extends React.Component {
   static navigationOptions = {
@@ -54,6 +55,10 @@ class DetailsScreen extends React.Component {
           title="Go back"
           onPress={() => this.props.navigation.goBack()}
         />
+        <Button
+          title="Go to preview"
+          onPress={() => this.props.navigation.navigate('Preview')}
+        />
       </View>
     );
   }
@@ -63,7 +68,8 @@ const AppNavigator = createStackNavigator(
   {
     Home: HomeScreen,
     Details:DetailsScreen,
-    Walkthrough: WalkthroughScreen
+    Walkthrough: WalkthroughScreen,
+    Preview: PreviewScreen
   },
   {
     initialRouteName: 'Walkthrough',
