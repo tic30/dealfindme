@@ -3,6 +3,13 @@ var ShopDao = require('../dao/ShopDao');
 var GeoFencingHelper = require('../utils/GeoFencingHelper');
 var shopDao = new ShopDao();
 var geoFencingHelper = new GeoFencingHelper();
+var fs = require('fs');
+var path = require('path');
+const project1 = "62cfe960-b83a-4dab-adf7-dcedb821d32f"; //Small radius
+const project2 = "3766f299-01a1-4328-b445-c9ef86a6b0e9"; //Large radius 
+const distanceBound = 11000;
+
+const shopInfoFilePath = path.join(__dirname, "../data/shopInfo");
 
 /*
 * Handle issues about shops
@@ -15,17 +22,25 @@ class Shop {
 		return new Promise((resolve, reject) => {
 			
 			//1. Get fences from the geoFence
-			let fenceRet = geoFencingHelper.getReport(longitude, latitude);
+			let fenceRet = geoFencingHelper.getReport(longitude, latitude, project2);
 			fenceRet.then((fenceArr) => {
 				//2. Get all the shops
 				let searchRet = shopDao.findAll();
+				var fenceInsideArr = fenceArr.inside.features;
+				var fenceOutsideArr = fenceArr.outside.features;
 				searchRet.then((shopArr) => {
 					//3. Filter the result
 					var shops = [];
 					console.log(shopArr.length);
 					for (var i = 0; i < shopArr.length; i++){
-						for (var j = 0; j < fenceArr.length; j++){
-							if (shopArr[i].name == fenceArr[j].name){
+						for (var j = 0; j < fenceInsideArr.length; j++){
+							if (shopArr[i].name == fenceInsideArr[j].name){
+								shops.push(shopArr[i]);
+								break;
+							}
+						}
+						for (var j = 0; j < fenceOutsideArr.length; j++){
+							if (shopArr[i].name == fenceOutsideArr[j].name && fenceOutsideArr[j].distance < distanceBound){
 								shops.push(shopArr[i]);
 								break;
 							}
@@ -64,7 +79,6 @@ class Shop {
 	*/
 	addShop(params) {
 		return new Promise((resolve, reject) => {
-			//1. Whether wxid existed
 			let searchRet = shopDao.createOne(params);
 			searchRet.then((result) => {
   				let ret = {
@@ -83,6 +97,60 @@ class Shop {
 
 		});
 	};
+
+	/*
+	* Backfill shops
+	*/
+	backfillShop(projectid, range) {
+		return new Promise((resolve, reject) => {
+			//1. Read the file information
+			try {  
+    			var data = fs.readFileSync(shopInfoFilePath, 'utf8');
+    			var lines = data.toString().split("\n"); 
+    			var shopInfos = [];
+    			for (var i = 1; i < lines.length; i++){
+    				var line = lines[i].split(";");
+    				var shopInfo = {
+    					"name" : line[0],
+    					"discountInfo" : line[1],
+    					"logo" : line[2],
+    					"latitude" : line[3],
+    					"longitude" : line[4],
+    					"distance" : line[5]
+    				};
+    				console.log(shopInfo);
+    				shopInfos.push(shopInfo);
+    			}
+    			
+    			let promises = [];
+			
+				for (var i = 0; i < shopInfos.length; i++){
+					if (range > 40){
+						promises.push(this.addShop(shopInfos[i]));
+					}
+					promises.push(geoFencingHelper.addFence(shopInfos[i], projectid, range));
+				}
+
+				Promise.all(promises).then(() => {
+					
+					let ret = {
+                    	"errorCode": 0
+                	}
+					resolve(ret);
+				}).catch((err) => {
+				 	let ret = {
+                    	"errorCode": -3,
+                    	"errorMsg": err
+                	}
+                	reject(ret);
+				});
+			} catch(e) {
+    			console.log('Error:', e.stack);
+    			reject(e.stack);
+			}
+
+		});
+	}
 }
 
 module.exports = Shop;

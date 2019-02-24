@@ -3,17 +3,17 @@ require('../utils/MongoConnector');
 
 const shopSchema = new mongoose.Schema({
 	name:	    String,
-	maxDiscount: String,
+	discountInfo: String,
 	logo:    String,
-	coupon: Object,
-	fenceId: String
+	latitude: String,
+	longitude: String,
+	distance: String
 });
 
 const Shop = mongoose.model('shop', shopSchema);
 
 class ShopDao {
 
-	// params = { wx_id, leetcode_name }
 	createOne(params) {
 		const shop = new Shop(params);
 		return this.saveOne(shop);
@@ -28,7 +28,7 @@ class ShopDao {
 
 	findAll() {
 		return new Promise((resolve, reject) => {
-			Shop.find({}, 'name maxDiscount logo coupon fenceId',
+			Shop.find({}, 'name maxDiscount logo latitude longitude distance',
 				(err, shop) => err ? reject(err) : resolve(shop));
 		});
 	}

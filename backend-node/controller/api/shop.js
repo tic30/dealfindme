@@ -7,6 +7,7 @@ router.get('/:longitude/:latitude', execute_get_all);
 router.get('/:shopname', execute_get);
 router.post('/', execute_post)
 router.get('/hello', execute_hello);
+router.get('/backfill/:projectid/:range', execute_backfill);
 
 /*
 * Get all user info
@@ -51,6 +52,20 @@ function execute_post(req, res, next){
         "maxDiscount" : "20%"
     }
     let ret = shopObj.addShop(params);
+    ret.then((result) => {
+        res.send(result);
+    },(err) => {
+        res.send(err);
+    })
+}
+
+/*
+* Backfill the shop info including Tomtom and mongoDB
+*/
+function execute_backfill(req, res, next){
+    var projectid = req.params.projectid;
+    var range = req.params.range;
+    let ret = shopObj.backfillShop(projectid, range);
     ret.then((result) => {
         res.send(result);
     },(err) => {
