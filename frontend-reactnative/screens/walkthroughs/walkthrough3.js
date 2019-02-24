@@ -58,7 +58,7 @@ export class Walkthrough3 extends React.Component {
       token: token,
       skip: true
     })
-    if (this.skip) {
+    if (this.skip){
     let resetAction = StackActions.reset({
       index: 0,
       actions: [NavigationActions.navigate({ routeName: 'Home' })],

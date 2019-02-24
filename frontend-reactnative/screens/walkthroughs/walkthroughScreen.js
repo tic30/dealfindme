@@ -1,12 +1,5 @@
 import React from 'react';
-<<<<<<< Updated upstream
-import { View, Button } from 'react-native';
-||||||| merged common ancestors
 import { View } from 'react-native';
-import { Button } from 'react-native-elements';
-=======
-import { View } from 'react-native';
->>>>>>> Stashed changes
 import { RkStyleSheet } from 'react-native-ui-kitten';
 import {
   PaginationIndicator,
@@ -14,16 +7,8 @@ import {
 import { Walkthrough } from '../../components/walkthrough';
 import { Walkthrough1 } from './walkthrough1';
 import { Walkthrough2 } from './walkthrough2';
-<<<<<<< Updated upstream
-import { StackActions, NavigationActions } from 'react-navigation';
-||||||| merged common ancestors
 import { Walkthrough3 } from './walkthrough3';
-
-import { StackActions, NavigationActions } from 'react-navigation';
-=======
-import { Walkthrough3 } from './walkthrough3';
-
->>>>>>> Stashed changes
+//import { StackActions, NavigationActions } from 'react-navigation';
 // import NavigationType from '../../config/navigation/propTypes';
 
 export class WalkthroughScreen extends React.Component {
@@ -55,24 +40,9 @@ export class WalkthroughScreen extends React.Component {
       <Walkthrough onChanged={this.onWalkThroughIndexChanged}>
         <Walkthrough1 />
         <Walkthrough2 />
+        <Walkthrough3 />
       </Walkthrough>
-<<<<<<< Updated upstream
-      <PaginationIndicator length={2} current={this.state.index} />
-      <Button
-        style={styles.button}
-        title="GET STARTED"
-        onPress={this.onStartButtonPressed}
-      />
-||||||| merged common ancestors
-      <PaginationIndicator length={2} current={this.state.index} />
-      <Button
-        buttonStyle={styles.button}
-        title="GET STARTED"
-        onPress={this.onStartButtonPressed}
-      />
-=======
       <PaginationIndicator length={3} current={this.state.index} />
->>>>>>> Stashed changes
     </View>
   )
 }
@@ -83,12 +53,6 @@ const styles = RkStyleSheet.create({
     alignItems: 'center',
     flex: 1,
   },
-<<<<<<< Updated upstream
-  button: {
-    marginTop: 25,
-    marginHorizontal: 16,
-  },
-||||||| merged common ancestors
   button: {
     marginTop: 25,
     marginHorizontal: 16,
@@ -96,7 +60,4 @@ const styles = RkStyleSheet.create({
     width:260,
     backgroundColor: "#DC4545"
   },
-=======
-  
->>>>>>> Stashed changes
 })
