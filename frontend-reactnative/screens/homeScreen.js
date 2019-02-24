@@ -67,8 +67,8 @@ export class HomeScreen extends React.Component {
                 </View>
                 <View style={styles.botHalf}>
                     <ScrollView>
-                        { dealList ? dealList.map((deal) => {
-                        return (<RkCard rkType='article'>
+                        { dealList ? dealList.map((deal,id) => {
+                        return (<RkCard rkType='article' key={id}>
                             <View rkCardHeader>
                                 <View>
                                     <RkText style={styles.title} rkType='header4'>{deal.name}</RkText>

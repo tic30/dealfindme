@@ -27,8 +27,7 @@ export class Walkthrough1 extends React.Component {
     <View style={styles.screen}>
       {this.renderImage()}
       <Text h4 style={styles.textTitle}>Let's Get Started</Text>
-      <RkText style={styles.text}>Deals on hand when</RkText>
-      <RkText style={styles.text}>you walk in a store</RkText>
+      <RkText style={styles.text}>Deals on hand when{"\n"}you are walking in a store</RkText>
     </View>
   )
 }
@@ -42,12 +41,13 @@ const styles = RkStyleSheet.create(theme => ({
   },
   textTitle: {
     textAlign: 'center',
-    color: "#DC4545",
+    color: "#AE0015",
     marginTop: 20,
     marginBottom: 20,
     marginHorizontal: 30,
   },
   text:{
     color: "#666666",
+    marginBottom: 103
   }
 }));

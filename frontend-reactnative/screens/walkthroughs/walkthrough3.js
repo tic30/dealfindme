@@ -2,23 +2,26 @@ import React from 'react';
 import {
   View,
   Image,
-  Text,
-  Button
+  TouchableOpacity
 } from 'react-native';
 import {
   RkText,
   RkStyleSheet,
   RkTheme,
 } from 'react-native-ui-kitten';
+import { Text, Button } from "react-native-elements";
 import { Permissions, Notifications } from 'expo';
+import { StackActions, NavigationActions } from 'react-navigation';
+
 
 export class Walkthrough3 extends React.Component {
   constructor(props){
     super(props)
     this.state = {
-      token:null
+      token:null,
+      skip:null
     }
-    this.getToken = this.getToken.bind(this)
+    this.getToken = this.getToken.bind(this);
   }
   getThemeImageSource = (theme) => (
     theme.name === 'light' ?
@@ -53,16 +56,31 @@ export class Walkthrough3 extends React.Component {
     // Get the token that uniquely identifies this device
     let token = await Notifications.getExpoPushTokenAsync();
     this.setState({
-      token: token
+      token: token,
+      // skip: true
     })
-  }
- 
+    // if (this.skip){
+    let resetAction = StackActions.reset({
+      index: 0,
+      actions: [NavigationActions.navigate({ routeName: 'Home' })],
+    });
+    this.props.navigation.dispatch(resetAction);
+  // }
+}
+
   render = () => (
     <View style={styles.screen}>
       {this.renderImage()}
-      <RkText rkType='header2' style={styles.text}>Get Notification</RkText>
-      <RkText>See deals on lock</RkText>
-      <Button onPress={this.getToken} title="Allow Notification" />
+      {/* <Text h4 style={styles.textTitle}>Get Notification</Text> */}
+      <TouchableOpacity
+        style={styles.button}
+        onPress={this.getToken}
+      >
+        <Text style={styles.textTitle}>Get Notification</Text>
+      </TouchableOpacity>
+      <RkText style={styles.text}>See deals on lock</RkText>
+      <RkText style={styles.text2}>screen</RkText>
+      {/* <Button buttonStyle={styles.button} onPress={this.getToken} title="ALLOW NOTIFICATION" /> */}
       {this.state.token && <Text>{this.state.token}</Text>}
     </View>
   )
@@ -75,9 +93,28 @@ const styles = RkStyleSheet.create(theme => ({
     justifyContent: 'center',
     flex: 1,
   },
-  text: {
-    textAlign: 'center',
-    marginTop: 20,
-    marginHorizontal: 30,
+  textTitle: {
+    // textAlign: 'center',
+    backgroundColor: "white",
+    color: "#AE0015",
+    marginTop: 10,
+    marginBottom: 20,
+    // marginHorizontal: 30,
+    fontSize: 28,
+    textDecorationLine: 'underline'
+  },
+  text:{
+    color: "#666666",
+  },
+  text2:{
+    color: "#666666",
+    marginBottom: 100,
+  },
+  button: {
+    // marginTop: 60,
+    // marginHorizontal: 16,
+    // padding: 10,
+    // width:260,
+    // backgroundColor: "#DC4545"
   },
 }));

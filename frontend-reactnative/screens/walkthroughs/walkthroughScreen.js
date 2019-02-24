@@ -1,17 +1,14 @@
 import React from 'react';
 import { View } from 'react-native';
-import { Button } from 'react-native-elements';
 import { RkStyleSheet } from 'react-native-ui-kitten';
 import {
-  GradientButton,
   PaginationIndicator,
 } from '../../components/';
 import { Walkthrough } from '../../components/walkthrough';
 import { Walkthrough1 } from './walkthrough1';
 import { Walkthrough2 } from './walkthrough2';
 import { Walkthrough3 } from './walkthrough3';
-
-import { StackActions, NavigationActions } from 'react-navigation';
+//import { StackActions, NavigationActions } from 'react-navigation';
 // import NavigationType from '../../config/navigation/propTypes';
 
 export class WalkthroughScreen extends React.Component {
@@ -30,27 +27,22 @@ export class WalkthroughScreen extends React.Component {
     this.setState({ index });
   };
 
-  onStartButtonPressed = () => {
-    const resetAction = StackActions.reset({
-      index: 0,
-      actions: [NavigationActions.navigate({ routeName: 'Home' })],
-    });
-    this.props.navigation.dispatch(resetAction);
-  };
+  // onStartButtonPressed = () => {
+  //   const resetAction = StackActions.reset({
+  //     index: 0,
+  //     actions: [NavigationActions.navigate({ routeName: 'Home' })],
+  //   });
+  //   this.props.navigation.dispatch(resetAction);
+  // };
 
   render = () => (
     <View style={styles.screen}>
       <Walkthrough onChanged={this.onWalkThroughIndexChanged}>
         <Walkthrough1 />
         <Walkthrough2 />
-        <Walkthrough3 />
+        <Walkthrough3 navigation={this.props.navigation}/>
       </Walkthrough>
-      <PaginationIndicator length={2} current={this.state.index} />
-      <Button
-        buttonStyle={styles.button}
-        title="GET STARTED"
-        onPress={this.onStartButtonPressed}
-      />
+      <PaginationIndicator length={3} current={this.state.index} />
     </View>
   )
 }
