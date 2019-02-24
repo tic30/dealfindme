@@ -2,23 +2,25 @@ import React from 'react';
 import {
   View,
   Image,
-  Text,
-  Button
 } from 'react-native';
 import {
   RkText,
   RkStyleSheet,
   RkTheme,
 } from 'react-native-ui-kitten';
+import { Text, Button } from "react-native-elements";
 import { Permissions, Notifications } from 'expo';
+import { StackActions, NavigationActions } from 'react-navigation';
+
 
 export class Walkthrough3 extends React.Component {
   constructor(props){
     super(props)
     this.state = {
-      token:null
+      token:null,
+      skip:null
     }
-    this.getToken = this.getToken.bind(this)
+    this.getToken = this.getToken.bind(this);
   }
   getThemeImageSource = (theme) => (
     theme.name === 'light' ?
@@ -53,17 +55,25 @@ export class Walkthrough3 extends React.Component {
     // Get the token that uniquely identifies this device
     let token = await Notifications.getExpoPushTokenAsync();
     this.setState({
-      token: token
+      token: token,
+      skip: true
     })
+    if (this.skip) {
+    let resetAction = StackActions.reset({
+      index: 0,
+      actions: [NavigationActions.navigate({ routeName: 'Home' })],
+    });
+    this.props.navigation.dispatch(resetAction);
   }
+}
  
   render = () => (
     <View style={styles.screen}>
       {this.renderImage()}
-      <RkText rkType='header2' style={styles.text}>Get Notification</RkText>
-      <RkText>See deals on lock</RkText>
-      <Button onPress={this.getToken} title="Allow Notification" />
-      {this.state.token && <Text>{this.state.token}</Text>}
+      <Text h4 style={styles.textTitle}>Get Notification</Text>
+      <RkText style={styles.text}>See deals on lock</RkText>
+      <RkText style={styles.text}>screen</RkText>
+      <Button buttonStyle={styles.button} onPress={this.getToken} title="ALLOW NOTIFICATION" />
     </View>
   )
 }
@@ -75,9 +85,21 @@ const styles = RkStyleSheet.create(theme => ({
     justifyContent: 'center',
     flex: 1,
   },
-  text: {
+  textTitle: {
     textAlign: 'center',
+    color: "#DC4545",
     marginTop: 20,
+    marginBottom: 20,
     marginHorizontal: 30,
+  },
+  text:{
+    color: "#666666",
+  },
+  button: {
+    marginTop: 60,
+    marginHorizontal: 16,
+    padding: 10,
+    width:260,
+    backgroundColor: "#DC4545"
   },
 }));
