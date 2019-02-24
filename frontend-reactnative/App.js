@@ -3,7 +3,7 @@ import { Button, View, Text } from 'react-native';
 import { createStackNavigator, createAppContainer } from 'react-navigation';
 import { Icon } from 'react-native-elements'
 import { WalkthroughScreen } from './screens/walkthroughs';
-import { PreviewScreen, HomeScreen } from './screens';
+import { PreviewScreen, HomeScreen, Store } from './screens';
 
 class DetailsScreen extends React.Component {
   render() {
@@ -66,6 +66,7 @@ const AppNavigator = createStackNavigator(
     Home: HomeScreen,
     Details: DetailsScreen,
     Walkthrough: WalkthroughScreen,
+    Store: Store,
     Preview: PreviewScreen
   },
   {
