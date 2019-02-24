@@ -18,6 +18,7 @@ import {
     RkStyleSheet
 } from 'react-native-ui-kitten';
 import Placeholder from 'rn-placeholder';
+// import Store from 'store';
 
 
 export class HomeScreen extends React.Component {
@@ -49,6 +50,9 @@ export class HomeScreen extends React.Component {
         });
     
     }
+    pressCard(deal){
+        this.props.navigation.navigate('Store', {deal:deal})
+    }
     render() {
         const { dealList } = this.state
         return (
@@ -67,27 +71,29 @@ export class HomeScreen extends React.Component {
                 </View>
                 <View style={styles.botHalf}>
                     <ScrollView>
-                        { dealList ? dealList.map((deal,id) => {
-                        return (<RkCard rkType='article' key={id}>
-                            <View rkCardHeader>
-                                <View>
-                                    <RkText style={styles.title} rkType='header4'>{deal.name}</RkText>
+                        { dealList.length>0 ? dealList.map((deal,id) => {
+                        return (
+                        <TouchableOpacity  key={id} onPress={()=>this.pressCard(deal)}>
+                            <RkCard rkType='article'>
+                                <View rkCardHeader>
+                                    <View>
+                                        <RkText style={styles.title} rkType='header4'>{deal.name}</RkText>
+                                    </View>
                                 </View>
-                            </View>
-                            <TouchableOpacity>
-                                    <Image style={{height: 50,resizeMode : 'contain' }} source={{uri: 'http://10.3.18.209:3000' + deal.logo }} />
-                            </TouchableOpacity>
-                            <View rkCardContent>
-                                <View>
-                                    <RkText rkType='primary3 bigLine'>{deal.discountInfo}</RkText>
+
+                                <Image style={{height: 50,resizeMode : 'contain' }} source={{uri: 'http://10.3.18.209:3000' + deal.logo }} />
+                                <View rkCardContent>
+                                    <View>
+                                        <RkText rkType='primary3 bigLine'>{deal.discountInfo}</RkText>
+                                    </View>
+                                    <View>
+                                        <RkText rkType='primary3 bigLine'>{deal.distance}</RkText>
+                                    </View>
                                 </View>
-                                <View>
-                                    <RkText rkType='primary3 bigLine'>{deal.distance}</RkText>
+                                <View rkCardFooter>
                                 </View>
-                            </View>
-                            <View rkCardFooter>
-                            </View>
-                        </RkCard>)
+                            </RkCard>
+                        </TouchableOpacity>)
                     })
                         : 
                     (
