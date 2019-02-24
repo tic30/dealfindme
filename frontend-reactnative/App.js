@@ -94,10 +94,11 @@ export default class App extends React.Component {
   componentWillMount(){
     Notifications.addListener(this.handleNotification)
   }
-  handleNotification(){
-    this.setState({
-      notification:notification
-    })
+  handleNotification(notification){
+    // this.setState({
+    //   notification:notification
+    // })
+    alert('You are in store!')
   }
   render(){
     return <AppContainer/>
