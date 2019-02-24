@@ -24,7 +24,10 @@ export class HomeScreen extends React.Component {
     static navigationOptions = {
         title: 'DealFindMe',
         /* No more header config here! */
-    };
+    }
+    componentDidMount(){
+        // fetch 
+    }
     render() {
         const { dealList } = this.state
         return (
@@ -103,7 +106,7 @@ const styles = RkStyleSheet.create(theme => ({
         height: 400
     },
     topHalf:{
-        backgroundColor: 'red',
+        backgroundColor: '#AE0015',
         height:200,
         width:'100%',
         alignItems: 'center', 
