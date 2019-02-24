@@ -4,6 +4,7 @@ import { createStackNavigator, createAppContainer } from 'react-navigation';
 import { Icon } from 'react-native-elements'
 import { WalkthroughScreen } from './screens/walkthroughs';
 import { PreviewScreen, HomeScreen } from './screens';
+import { Notifications } from 'expo';
 
 class DetailsScreen extends React.Component {
   render() {
@@ -89,6 +90,14 @@ const AppNavigator = createStackNavigator(
 const AppContainer = createAppContainer(AppNavigator);
 
 export default class App extends React.Component {
+  componentWillMount(){
+    Notifications.addListener(this.handleNotification)
+  }
+  handleNotification(){
+    this.setState({
+      notification:notification
+    })
+  }
   render(){
     return <AppContainer/>
   }
