@@ -27,7 +27,7 @@ export class Walkthrough1 extends React.Component {
     <View style={styles.screen}>
       {this.renderImage()}
       <Text h4 style={styles.textTitle}>Let's Get Started</Text>
-      <RkText style={styles.text}>Deals on hand when{"\n"}you are walking in a store</RkText>
+      <RkText style={styles.text}>Deals on hand when{"\n"}you walk into a store</RkText>
     </View>
   )
 }
