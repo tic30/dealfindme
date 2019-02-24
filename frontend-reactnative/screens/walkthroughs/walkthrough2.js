@@ -64,7 +64,7 @@ export class Walkthrough2 extends React.Component {
       {this.renderImage()}
       <RkText rkType='header2' style={styles.text}>Allow Location</RkText>
       <Button onPress={this.getLocation} title="Allow Location" />
-      {this.state.location && <Text>{this.state.location}</Text>}
+      {this.state.location && <Text>{this.state.location.coords.longitude+', '+this.state.location.coords.altitude}</Text>}
     </View>
   )
 }
