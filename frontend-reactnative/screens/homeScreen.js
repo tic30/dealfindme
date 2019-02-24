@@ -10,6 +10,9 @@ import {
     Image
 } from 'react-native';
 import {
+  Notifications,
+} from 'expo';
+import {
     RkCard,
     RkText,
     RkStyleSheet
@@ -30,7 +33,7 @@ export class HomeScreen extends React.Component {
         /* No more header config here! */
     }
     componentDidMount(){
-        fetch("http://10.0.0.186:3000/shops/-122.4045094/37.7841393", {
+        fetch("http://10.3.18.209:3000/shops/-122.4045094/37.7841393", {
             method: 'GET',
             headers: {
                 Accept: 'application/json',
@@ -72,7 +75,7 @@ export class HomeScreen extends React.Component {
                                 </View>
                             </View>
                             <TouchableOpacity>
-                                    <Image style={{height: 50,resizeMode : 'contain' }} source={{uri: 'http://10.0.0.186:3000' + deal.logo }} />
+                                    <Image style={{height: 50,resizeMode : 'contain' }} source={{uri: 'http://10.3.18.209:3000' + deal.logo }} />
                             </TouchableOpacity>
                             <View rkCardContent>
                                 <View>

@@ -17,8 +17,9 @@ class NotificationSender {
 				"title?" : "Welcome to the " + shopInfo["name"] + ", you might want to check out this discount.",
 				"body?" : shopInfo["name"] + " have a deal " + shopInfo["discountInfo"] + " for you!",
 				"sound?" : "default",
-				"priority" : "high",
-				"badge" : 1
+				"priority?" : "high",
+				"badge?" : 2,
+				"content-available?" : 1
 			}
 			console.log(params);
 			axios.post(url, params)
