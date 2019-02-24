@@ -91,6 +91,10 @@ const AppNavigator = createStackNavigator(
 const AppContainer = createAppContainer(AppNavigator);
 
 export default class App extends React.Component {
+  // constructor(props){
+  //   super(props)
+  //   this.handleNotification = this.handleNotification.bind(this)
+  // }
   componentWillMount(){
     Notifications.addListener(this.handleNotification)
   }
@@ -98,7 +102,9 @@ export default class App extends React.Component {
     // this.setState({
     //   notification:notification
     // })
-    alert('You are in store!')
+    let shopInfo = notification.data
+    alert(shopInfo["name"] + " have a deal " + shopInfo["discountInfo"] + " for you!")
+    // this.props.navigation.navigate('Store', {deal:shopInfo})
   }
   render(){
     return <AppContainer/>
