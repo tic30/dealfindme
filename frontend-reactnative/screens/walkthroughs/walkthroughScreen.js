@@ -8,6 +8,8 @@ import {
 import { Walkthrough } from '../../components/walkthrough';
 import { Walkthrough1 } from './walkthrough1';
 import { Walkthrough2 } from './walkthrough2';
+import { Walkthrough3 } from './walkthrough3';
+
 import { StackActions, NavigationActions } from 'react-navigation';
 // import NavigationType from '../../config/navigation/propTypes';
 
@@ -40,6 +42,7 @@ export class WalkthroughScreen extends React.Component {
       <Walkthrough onChanged={this.onWalkThroughIndexChanged}>
         <Walkthrough1 />
         <Walkthrough2 />
+        <Walkthrough3 />
       </Walkthrough>
       <PaginationIndicator length={2} current={this.state.index} />
       <Button
