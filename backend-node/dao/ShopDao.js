@@ -28,7 +28,7 @@ class ShopDao {
 
 	findAll() {
 		return new Promise((resolve, reject) => {
-			Shop.find({}, 'name maxDiscount logo latitude longitude distance',
+			Shop.find({}, 'name discountInfo logo latitude longitude distance',
 				(err, shop) => err ? reject(err) : resolve(shop));
 		});
 	}
