@@ -1,31 +1,9 @@
 import React from 'react';
 import { Button, View, Text } from 'react-native';
 import { createStackNavigator, createAppContainer } from 'react-navigation';
+import { Icon } from 'react-native-elements'
 import { WalkthroughScreen } from './screens/walkthroughs';
-
-class HomeScreen extends React.Component {
-  static navigationOptions = {
-    title: 'Home',
-    /* No more header config here! */
-  };
-  render() {
-    return (
-      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        <Text>Home Screen</Text>
-        <Button
-          title="Go to Details"
-          onPress={() => {
-            /* 1. Navigate to the Details route with params */
-            this.props.navigation.navigate('Details', {
-              itemId: 86,
-              otherParam: 'anything you want here',
-            });
-          }}
-        />
-      </View>
-    );
-  }
-}
+import { PreviewScreen, HomeScreen } from './screens';
 
 class DetailsScreen extends React.Component {
   render() {
@@ -54,6 +32,30 @@ class DetailsScreen extends React.Component {
           title="Go back"
           onPress={() => this.props.navigation.goBack()}
         />
+        <Button
+          title="Go to preview"
+          onPress={() => this.props.navigation.navigate('Preview')}
+        />
+      </View>
+    );
+  }
+}
+
+class LogoTitle extends React.Component {
+  render() {
+    return (
+      <View style={{width:'90%',flexDirection:'row',justifyContent:'space-between'}}>
+        <Icon
+          name='search'
+          type='material'
+          color='white'
+        />
+        <Text style={{color:'white'}}>DealFindMe</Text>
+        <Icon
+          name='favorite-border'
+          type='material'
+          color='white'
+        />
       </View>
     );
   }
@@ -62,16 +64,20 @@ class DetailsScreen extends React.Component {
 const AppNavigator = createStackNavigator(
   {
     Home: HomeScreen,
-    Details:DetailsScreen,
-    Walkthrough: WalkthroughScreen
+    Details: DetailsScreen,
+    Walkthrough: WalkthroughScreen,
+    Preview: PreviewScreen
   },
   {
     initialRouteName: 'Walkthrough',
     /* The header config from HomeScreen is now here */
     defaultNavigationOptions: {
       headerStyle: {
-        backgroundColor: '#f4511e',
+        backgroundColor: 'red',
+        borderBottomWidth: 0,
+        shadowOpacity: 0
       },
+      headerTitle:<LogoTitle/>,
       headerTintColor: '#fff',
       headerTitleStyle: {
         fontWeight: 'bold',
@@ -83,7 +89,7 @@ const AppNavigator = createStackNavigator(
 const AppContainer = createAppContainer(AppNavigator);
 
 export default class App extends React.Component {
-  render() {
-    return <AppContainer />;
+  render(){
+    return <AppContainer/>
   }
 }

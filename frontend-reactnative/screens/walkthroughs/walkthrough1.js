@@ -12,17 +12,21 @@ import {
 export class Walkthrough1 extends React.Component {
   getThemeImageSource = (theme) => (
     theme.name === 'light' ?
-      require('../../assets/images/kittenImage.png') : require('../../assets/images/kittenImageDark.png')
+      require('../../assets/images/1_red.png') : require('../../assets/images/1_red.png')
   );
 
   renderImage = () => (
-    <Image source={this.getThemeImageSource(RkTheme.current)} />
+    <Image
+      style={{width: 300, height: 300}}
+      source={this.getThemeImageSource(RkTheme.current)}
+    />
   );
 
   render = () => (
     <View style={styles.screen}>
       {this.renderImage()}
-      <RkText rkType='header2' style={styles.text}>Welcome to Kitten Tricks</RkText>
+      <RkText rkType='header2' style={styles.text}>Let's Get Started</RkText>
+      <RkText>Deals on hand when you walk in a store</RkText>
     </View>
   )
 }
@@ -35,6 +39,8 @@ const styles = RkStyleSheet.create(theme => ({
     flex: 1,
   },
   text: {
+    textAlign: 'center',
     marginTop: 20,
+    marginHorizontal: 30,
   },
 }));
