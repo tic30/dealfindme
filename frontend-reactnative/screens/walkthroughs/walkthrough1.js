@@ -8,6 +8,7 @@ import {
   RkStyleSheet,
   RkTheme,
 } from 'react-native-ui-kitten';
+import { Text } from "react-native-elements";
 
 export class Walkthrough1 extends React.Component {
   getThemeImageSource = (theme) => (
@@ -25,8 +26,8 @@ export class Walkthrough1 extends React.Component {
   render = () => (
     <View style={styles.screen}>
       {this.renderImage()}
-      <RkText rkType='header2' style={styles.text}>Let's Get Started</RkText>
-      <RkText>Deals on hand when you walk in a store</RkText>
+      <Text h4 style={styles.textTitle}>Let's Get Started</Text>
+      <RkText style={styles.text}>Deals on hand when{"\n"}you are walking in a store</RkText>
     </View>
   )
 }
@@ -38,9 +39,15 @@ const styles = RkStyleSheet.create(theme => ({
     justifyContent: 'center',
     flex: 1,
   },
-  text: {
+  textTitle: {
     textAlign: 'center',
+    color: "#AE0015",
     marginTop: 20,
+    marginBottom: 20,
     marginHorizontal: 30,
   },
+  text:{
+    color: "#666666",
+    marginBottom: 103
+  }
 }));
