@@ -41,7 +41,7 @@ const styles = RkStyleSheet.create(theme => ({
   },
   textTitle: {
     textAlign: 'center',
-    color: "#DC4545",
+    color: "#AE0015",
     marginTop: 20,
     marginBottom: 20,
     marginHorizontal: 30,

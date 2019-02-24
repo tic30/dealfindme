@@ -2,6 +2,7 @@ import React from 'react';
 import {
   View,
   Image,
+  TouchableOpacity
 } from 'react-native';
 import {
   RkText,
@@ -56,24 +57,31 @@ export class Walkthrough3 extends React.Component {
     let token = await Notifications.getExpoPushTokenAsync();
     this.setState({
       token: token,
-      skip: true
+      // skip: true
     })
-    if (this.skip){
+    // if (this.skip){
     let resetAction = StackActions.reset({
       index: 0,
       actions: [NavigationActions.navigate({ routeName: 'Home' })],
     });
     this.props.navigation.dispatch(resetAction);
-  }
+  // }
 }
- 
+
   render = () => (
     <View style={styles.screen}>
       {this.renderImage()}
-      <Text h4 style={styles.textTitle}>Get Notification</Text>
+      {/* <Text h4 style={styles.textTitle}>Get Notification</Text> */}
+      <TouchableOpacity
+        style={styles.button}
+        onPress={this.getToken}
+      >
+        <Text style={styles.textTitle}>Get Notification</Text>
+      </TouchableOpacity>
       <RkText style={styles.text}>See deals on lock</RkText>
-      <RkText style={styles.text}>screen</RkText>
-      <Button buttonStyle={styles.button} onPress={this.getToken} title="ALLOW NOTIFICATION" />
+      <RkText style={styles.text2}>screen</RkText>
+      {/* <Button buttonStyle={styles.button} onPress={this.getToken} title="ALLOW NOTIFICATION" /> */}
+      {this.state.token && <Text>{this.state.token}</Text>}
     </View>
   )
 }
@@ -86,20 +94,27 @@ const styles = RkStyleSheet.create(theme => ({
     flex: 1,
   },
   textTitle: {
-    textAlign: 'center',
-    color: "#DC4545",
-    marginTop: 20,
+    // textAlign: 'center',
+    backgroundColor: "white",
+    color: "#AE0015",
+    marginTop: 10,
     marginBottom: 20,
-    marginHorizontal: 30,
+    // marginHorizontal: 30,
+    fontSize: 28,
+    textDecorationLine: 'underline'
   },
   text:{
     color: "#666666",
   },
+  text2:{
+    color: "#666666",
+    marginBottom: 100,
+  },
   button: {
-    marginTop: 60,
-    marginHorizontal: 16,
-    padding: 10,
-    width:260,
-    backgroundColor: "#DC4545"
+    // marginTop: 60,
+    // marginHorizontal: 16,
+    // padding: 10,
+    // width:260,
+    // backgroundColor: "#DC4545"
   },
 }));

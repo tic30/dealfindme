@@ -40,7 +40,7 @@ export class WalkthroughScreen extends React.Component {
       <Walkthrough onChanged={this.onWalkThroughIndexChanged}>
         <Walkthrough1 />
         <Walkthrough2 />
-        <Walkthrough3 />
+        <Walkthrough3 navigation={this.props.navigation}/>
       </Walkthrough>
       <PaginationIndicator length={3} current={this.state.index} />
     </View>
