@@ -1,13 +1,16 @@
 "use strict";
 var ShopDao = require('../dao/ShopDao');
 var GeoFencingHelper = require('../utils/GeoFencingHelper');
+var NotificationSender = require('../utils/NotificationSender');
 var shopDao = new ShopDao();
 var geoFencingHelper = new GeoFencingHelper();
+var notificationSender = new NotificationSender();
 var fs = require('fs');
 var path = require('path');
 const project1 = "62cfe960-b83a-4dab-adf7-dcedb821d32f"; //Small radius
 const project2 = "3766f299-01a1-4328-b445-c9ef86a6b0e9"; //Large radius 
 const distanceBound = 11000;
+const token = "eNbwkCM9-Jk8tBnVq2WOHL";
 
 const shopInfoFilePath = path.join(__dirname, "../data/shopInfo");
 
@@ -47,6 +50,49 @@ class Shop {
 						}
 					}
         			resolve(shops);
+    			},(err) => {
+        			reject(err);
+    			})
+    		},(err) => {
+        		reject(err);
+    		})
+		});
+	};
+
+	/*
+	* get all shops
+	*/
+	checkInShop(longitude, latitude) {
+		return new Promise((resolve, reject) => {
+			
+			//1. Get fences from the geoFence
+			let fenceRet = geoFencingHelper.getReport(longitude, latitude, project1);
+			fenceRet.then((fenceArr) => {
+				var fenceInsideArr = fenceArr.inside.features;
+				
+				if (fenceInsideArr.length != 1){
+					let ret = {
+                    	"errorCode": 0,
+                    	"errorMsg": "Not in an exact shop"
+                	}
+  					return resolve(ret);
+				}
+				var fenceName = fenceInsideArr[0].name.split("-")[0];
+				//2. Get all the shops
+				let param = {
+					name : fenceName
+				};
+				console.log(param);
+				let searchRet = shopDao.findOneByShopName(param);
+				searchRet.then((result) => {
+					notificationSender.sendNotice(result);
+
+					let ret = {
+                    	"errorCode": 0,
+                    	"errorMsg": "Check success",
+                    	"data": result
+                	}
+  					return resolve(ret);
     			},(err) => {
         			reject(err);
     			})

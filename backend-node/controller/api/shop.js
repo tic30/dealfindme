@@ -4,6 +4,7 @@ var Shop = require('../../service/shop');
 shopObj = new Shop();
 
 router.get('/:longitude/:latitude', execute_get_all);
+router.get('/check/:longitude/:latitude', execute_check);
 router.get('/:shopname', execute_get);
 router.post('/', execute_post)
 router.get('/hello', execute_hello);
@@ -21,6 +22,20 @@ function execute_get_all(req, res, next){
   	},(err) => {
         res.send(err);
   	})
+}
+
+/*
+* Check whether in one shop
+*/
+function execute_check(req, res, next){
+    var longitude = req.params.longitude;
+    var latitude = req.params.latitude;
+    let ret = shopObj.checkInShop(longitude, latitude);
+    ret.then((result) => {
+        res.send(result);
+    },(err) => {
+        res.send(err);
+    })
 }
 
 /*
